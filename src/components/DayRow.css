@@ -1,0 +1,153 @@
+.day-row {
+    display: grid;
+    grid-template-columns: 220px 1fr 520px 40px;
+    padding: 24px 0 24px 32px;
+    /* Top Right Bottom Left */
+    border-bottom: 1px solid var(--glass-border);
+    border-radius: 0;
+    margin-bottom: 0;
+    background: transparent !important;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    align-items: flex-start;
+}
+
+.day-row:hover {
+    background: rgba(255, 255, 255, 0.02) !important;
+}
+
+.day-row:last-child {
+    border-bottom: none;
+}
+
+.day-date-col {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-top: 4px;
+}
+
+.day-topic-col {
+    padding-right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.topic-title {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.mastery-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 4px;
+}
+
+.mastery-label {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    margin-bottom: 2px;
+}
+
+.mastery-status {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #f59e0b;
+    /* Amber/Gold */
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.day-stats-col {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0;
+}
+
+.stat-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 120px;
+    position: relative;
+}
+
+.stat-group:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 10%;
+    height: 80%;
+    width: 1px;
+    background: var(--glass-border);
+}
+
+.lecture-group {
+    /* Keep centering if needed, or remove to align top like others */
+    /* justify-content: center; */
+    height: 100%;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.stat-val {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+
+.stat-val.perfect-green {
+    color: #10b981;
+}
+
+/* File Icon Button */
+.file-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border-radius: 4px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s;
+    background: rgba(255, 255, 255, 0.05);
+    /* Subtle bg */
+    border: 1px solid var(--glass-border);
+}
+
+.file-icon-btn:hover {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    transform: translateY(-2px);
+}
+
+.day-action-col {
+    display: flex;
+    justify-content: flex-end;
+    color: var(--accent-primary);
+    padding-top: 8px;
+}
+
+@media (max-width: 1024px) {
+    .day-row {
+        grid-template-columns: 120px 1fr 40px;
+    }
+
+    .day-stats-col {
+        grid-column: 2 / 3;
+        justify-content: flex-start;
+        padding-top: 12px;
+    }
+}
