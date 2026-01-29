@@ -1,18 +1,21 @@
 import { useState, useEffect } from 'react';
-import { LayoutDashboard, Box } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import ModuleSidebarBlock from '../components/ModuleSidebarBlock';
 import DayRow from '../components/DayRow';
+import ModuleTestRow from '../components/ModuleTestRow';
 import PDFModal from '../components/PDFModal';
 import UserNotesModal from '../components/UserNotesModal';
-import ThemeToggle from '../components/ThemeToggle';
+
 import { mockModules } from '../data/mockModules';
 import './ModulesPage.css';
 
 const ModulesPage = () => {
+    const navigate = useNavigate();
     const [activeModuleId, setActiveModuleId] = useState(2);
     const [activeModule, setActiveModule] = useState(mockModules[1]);
     const [pdfModalOpen, setPdfModalOpen] = useState(false);
     const [selectedPdf, setSelectedPdf] = useState(null);
+    const [expandedDayId, setExpandedDayId] = useState(null);
 
     // User Notes State
     const [notesModalOpen, setNotesModalOpen] = useState(false);
@@ -39,17 +42,67 @@ const ModulesPage = () => {
         setSelectedPdf(null);
     };
 
-    const handleOpenUserNotes = (day) => {
+    const [notesLoading, setNotesLoading] = useState(false);
+
+    const handleOpenUserNotes = async (day) => {
         setCurrentNoteDay(day);
         setNotesModalOpen(true);
+
+        // Simulate fetching notes from backend
+        setNotesLoading(true);
+        try {
+            console.log(`Fetching notes for Day ID: ${day.id}...`);
+            await new Promise(resolve => setTimeout(resolve, 600)); // Simulate delay
+
+            // In a real app, we would fetch content here and update state
+            // const content = await fetchNotes(day.id);
+            // setNotesData(prev => ({ ...prev, [day.id]: content }));
+
+            console.log('Notes fetched successfully.');
+        } catch (err) {
+            console.error("Failed to load notes", err);
+        } finally {
+            setNotesLoading(false);
+        }
     };
 
-    const handleSaveNotes = (content) => {
+    const handleSaveNotes = async (content) => {
         if (currentNoteDay) {
-            setNotesData(prev => ({
-                ...prev,
-                [currentNoteDay.id]: content
-            }));
+            const previousContent = notesData[currentNoteDay.id] || '';
+
+            // Only save if content has changed
+            if (content !== previousContent) {
+                // Update local state
+                setNotesData(prev => ({
+                    ...prev,
+                    [currentNoteDay.id]: content
+                }));
+
+                // Call Dummy Backend API
+                try {
+                    console.log(`Saving notes for Day ID: ${currentNoteDay.id}...`);
+
+                    // Simulate API network request
+                    await new Promise(resolve => setTimeout(resolve, 800));
+
+                    /* Real implementation would be:
+                    const response = await fetch('/api/save-notes', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                            dayId: currentNoteDay.id, 
+                            content: content 
+                        })
+                    });
+                    if (!response.ok) throw new Error('Save failed');
+                    */
+
+                    console.log('Notes saved successfully to backend.');
+                } catch (error) {
+                    console.error('Error saving notes:', error);
+                    // Handle rollback if necessary
+                }
+            }
         }
     };
 
@@ -71,12 +124,12 @@ const ModulesPage = () => {
             <div className="modules-content-area">
                 <div className="content-header-row">
                     <div className="header-titles">
-                        <span className="module-top-label">MODULE - {activeModule.id} <span className="weeks-tag">{activeModule.weeks}</span></span>
+                        <span className="module-top-label">MODULE - {activeModule.id}</span>
                         <h2 className="module-main-title">{activeModule.subtitle}</h2>
                     </div>
 
                     <div className="header-actions">
-                        <ThemeToggle />
+
                     </div>
                 </div>
 
@@ -86,7 +139,8 @@ const ModulesPage = () => {
                             <DayRow
                                 key={day.id}
                                 day={day}
-                                onClick={() => { }}
+                                isExpanded={expandedDayId === day.id}
+                                onClick={() => setExpandedDayId(expandedDayId === day.id ? null : day.id)}
                                 onOpenNotes={handleOpenNotes}
                                 onOpenUserNotes={handleOpenUserNotes}
                             />
@@ -95,6 +149,11 @@ const ModulesPage = () => {
                         <div className="empty-state">
                             <p>{activeModule.isLocked ? "This module is locked." : "No content available yet."}</p>
                         </div>
+                    )}
+
+                    {/* Module Test Row */}
+                    {activeModule.moduleTest && (
+                        <ModuleTestRow test={activeModule.moduleTest} />
                     )}
                 </div>
             </div>
@@ -114,6 +173,7 @@ const ModulesPage = () => {
                 title={currentNoteDay ? `Notes: ${currentNoteDay.topic}` : 'My Notes'}
                 initialText={currentNoteDay ? notesData[currentNoteDay.id] : ''}
                 onSave={handleSaveNotes}
+                isLoading={notesLoading}
             />
         </div>
     );

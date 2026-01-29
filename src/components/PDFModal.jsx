@@ -1,4 +1,4 @@
-import { X, Download, FileText } from 'lucide-react';
+import { X } from 'lucide-react';
 import './PDFModal.css';
 
 const PDFModal = ({ isOpen, onClose, pdfUrl, title }) => {
@@ -8,29 +8,14 @@ const PDFModal = ({ isOpen, onClose, pdfUrl, title }) => {
         <div className="pdf-modal-overlay" onClick={onClose}>
             <div className="pdf-modal-container glass-panel" onClick={(e) => e.stopPropagation()}>
                 <div className="pdf-modal-header">
+                    <button className="close-btn" onClick={onClose}>
+                        <X size={20} />
+                    </button>
                     <div className="pdf-modal-title">
-                        <FileText size={20} className="pdf-icon" />
                         <h3>{title}</h3>
                     </div>
 
-                    <div className="pdf-header-actions">
-                        {pdfUrl && (
-                            <a
-                                href={pdfUrl}
-                                download
-                                target="_blank"
-                                rel="noreferrer"
-                                className="download-icon-btn"
-                                title="Download PDF"
-                                aria-label="Download PDF"
-                            >
-                                <Download size={20} />
-                            </a>
-                        )}
-                        <button className="close-btn" onClick={onClose}>
-                            <X size={20} />
-                        </button>
-                    </div>
+
                 </div>
 
                 <div className="pdf-modal-body">

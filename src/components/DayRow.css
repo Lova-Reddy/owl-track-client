@@ -1,153 +1,125 @@
+.day-row-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.day-row-container.expanded {
+    background: var(--bg-secondary);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
 .day-row {
     display: grid;
-    grid-template-columns: 220px 1fr 520px 40px;
-    padding: 24px 0 24px 32px;
-    /* Top Right Bottom Left */
-    border-bottom: 1px solid var(--glass-border);
-    border-radius: 0;
-    margin-bottom: 0;
-    background: transparent !important;
-    transition: all var(--transition-fast);
+    grid-template-columns: 0.8fr 1.5fr 3fr 0.3fr;
+    padding: 16px 20px;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    align-items: center;
     cursor: pointer;
-    align-items: flex-start;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    border: 1px solid transparent;
+    transition: all 0.2s;
+    width: 100%;
+}
+
+.day-row-container.expanded .day-row {
+    box-shadow: none;
+    border-radius: 8px 8px 0 0;
+    border-bottom: 1px solid var(--glass-border);
 }
 
 .day-row:hover {
-    background: rgba(255, 255, 255, 0.02) !important;
+    border-color: var(--accent-primary);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
-.day-row:last-child {
-    border-bottom: none;
+.day-row-container.expanded .day-row:hover {
+    transform: none;
 }
 
+/* ... keep existing inner column styles ... */
 .day-date-col {
-    font-size: 0.8rem;
-    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+}
+
+.day-full {
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding-top: 4px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
 }
 
 .day-topic-col {
-    padding-right: 24px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
 }
 
 .topic-title {
     font-size: 0.95rem;
+    font-weight: 700;
     color: var(--text-primary);
-    font-weight: 500;
-}
-
-.mastery-badge {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-top: 4px;
-}
-
-.mastery-label {
-    font-size: 0.7rem;
-    color: var(--text-secondary);
-    margin-bottom: 2px;
-}
-
-.mastery-status {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    color: #f59e0b;
-    /* Amber/Gold */
-    font-size: 0.85rem;
-    font-weight: 600;
+    margin: 0;
 }
 
 .day-stats-col {
     display: flex;
+    align-items: center;
+    gap: 32px;
     justify-content: flex-end;
-    gap: 0;
 }
 
 .stat-group {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    width: 120px;
-    position: relative;
-}
-
-.stat-group:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    top: 10%;
-    height: 80%;
-    width: 1px;
-    background: var(--glass-border);
-}
-
-.lecture-group {
-    /* Keep centering if needed, or remove to align top like others */
-    /* justify-content: center; */
-    height: 100%;
+    align-items: flex-start;
+    gap: 2px;
 }
 
 .stat-label {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
     color: var(--text-secondary);
+    font-weight: 600;
 }
 
 .stat-val {
     font-size: 0.9rem;
     font-weight: 700;
-    color: var(--text-secondary);
+    color: var(--text-primary);
 }
 
 .stat-val.perfect-green {
     color: #10b981;
 }
 
-/* File Icon Button */
 .file-icon-btn {
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 6px;
-    border-radius: 4px;
-    color: var(--text-primary);
+    color: #6b7280;
     cursor: pointer;
-    transition: all 0.2s;
-    background: rgba(255, 255, 255, 0.05);
-    /* Subtle bg */
-    border: 1px solid var(--glass-border);
+    transition: color 0.2s;
+    padding: 2px;
 }
 
 .file-icon-btn:hover {
-    background: rgba(99, 102, 241, 0.1);
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
-    transform: translateY(-2px);
+    color: #3b82f6;
 }
 
 .day-action-col {
     display: flex;
     justify-content: flex-end;
-    color: var(--accent-primary);
-    padding-top: 8px;
 }
 
-@media (max-width: 1024px) {
-    .day-row {
-        grid-template-columns: 120px 1fr 40px;
-    }
+.action-icon {
+    color: #9ca3af;
+    transition: color 0.2s;
+}
 
-    .day-stats-col {
-        grid-column: 2 / 3;
-        justify-content: flex-start;
-        padding-top: 12px;
-    }
+.day-row:hover .action-icon {
+    color: #3b82f6;
 }

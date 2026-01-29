@@ -1,36 +1,38 @@
 .dashboard-container {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-lg);
-    padding-bottom: var(--spacing-xl);
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    overflow-y: auto;
+    height: 100%;
 }
 
 .dashboard-hero {
-    padding: var(--spacing-xl);
+    padding: var(--spacing-lg) var(--spacing-xl);
     border-radius: var(--radius-lg);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
-    margin-bottom: var(--spacing-md);
+    background: var(--bg-secondary);
+    border: 1px solid var(--glass-border);
+    margin-bottom: var(--spacing-sm);
+    min-height: 140px;
 }
 
 .hero-content h1 {
-    font-size: 2rem;
+    font-size: 1.75rem;
     margin-bottom: var(--spacing-xs);
-    background: linear-gradient(to right, #fff, #c7d2fe);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--text-primary);
 }
 
 .hero-content p {
     color: var(--text-secondary);
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .hero-stats {
     display: flex;
-    gap: var(--spacing-xl);
+    gap: var(--spacing-lg);
 }
 
 .stat-item {
@@ -40,19 +42,21 @@
 }
 
 .stat-value {
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: 700;
     color: var(--accent-primary);
 }
 
 .stat-label {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .section-title {
-    font-size: 1.5rem;
-    margin-bottom: var(--spacing-sm);
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-xs);
     padding-left: var(--spacing-xs);
     border-left: 4px solid var(--accent-primary);
     line-height: 1;
@@ -60,8 +64,9 @@
 
 .modules-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: var(--spacing-lg);
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+    padding-bottom: var(--spacing-xl);
 }
 
 @media (max-width: 768px) {

@@ -3,7 +3,7 @@
     grid-template-columns: 280px 1fr;
     gap: 0;
     /* Removed gap, controlled by padding now */
-    height: 100vh;
+    height: 100%;
     overflow: hidden;
     padding: 24px;
     background: var(--bg-primary);
@@ -19,6 +19,22 @@
     /* Space before divider */
     border-right: 1px solid var(--glass-border);
     /* The crisp divider */
+    height: 100%;
+    min-height: 0;
+}
+
+/* Sidebar scrollbar */
+.modules-sidebar-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.modules-sidebar-list::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 4px;
+}
+
+.modules-sidebar-list:hover::-webkit-scrollbar-thumb {
+    background: var(--glass-border);
 }
 
 .modules-content-area {
@@ -145,6 +161,7 @@
 .days-list {
     flex: 1;
     overflow-y: auto;
+    padding-bottom: 40px;
 }
 
 /* Scrollbar tweaks */

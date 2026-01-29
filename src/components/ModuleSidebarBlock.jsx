@@ -9,7 +9,6 @@ const ModuleSidebarBlock = ({ module, isActive, onClick }) => {
         >
             <div className="module-info-top">
                 <span className="module-header-title">{module.title}</span>
-                {module.weeks && <span className="module-duration">{module.weeks}</span>}
             </div>
 
             <h3 className="module-subtitle">{module.subtitle}</h3>
@@ -39,7 +38,40 @@ const ModuleSidebarBlock = ({ module, isActive, onClick }) => {
                 </div>
             </div>
 
-        </div>
+
+            {/* Module Test Button */}
+            {
+                module.moduleTest && (
+                    <div
+                        className={`module-status-bar ${!module.moduleTest.isLocked ? 'active-status test-btn' : 'locked-test'}`}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            if (!module.moduleTest.isLocked && module.moduleTest.link) {
+                                window.open(module.moduleTest.link, '_blank');
+                            }
+                        }}
+                        style={{ marginTop: '8px', cursor: module.moduleTest.isLocked ? 'not-allowed' : 'pointer' }}
+                    >
+                        <div className="status-label">
+                            Module Test
+                        </div>
+
+                        <div className="status-indicator">
+                            {module.moduleTest.isLocked ? (
+                                <div className="status-flex">
+                                    <Lock size={14} />
+                                    <span>Locked</span>
+                                </div>
+                            ) : (
+                                <div className="status-flex">
+                                    <ChevronRight size={14} />
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )
+            }
+        </div >
     );
 };
 

@@ -30,6 +30,8 @@
   /* Transition */
   --transition-fast: 0.2s ease;
   --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  --bg-gradient: radial-gradient(circle at 50% 0%, #1a1a2e 0%, var(--bg-primary) 70%);
 }
 
 [data-theme='light'] {
@@ -45,6 +47,8 @@
   --glass-highlight: rgba(255, 255, 255, 1);
 
   --accent-glow: rgba(99, 102, 241, 0.15);
+
+  --bg-gradient: radial-gradient(circle at 50% 0%, #ffffff 0%, var(--bg-primary) 70%);
 }
 
 * {
@@ -61,7 +65,7 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   /* Subtle Background Gradient */
-  background: radial-gradient(circle at 50% 0%, #1a1a2e 0%, var(--bg-primary) 70%);
+  background: var(--bg-gradient);
 }
 
 #root {

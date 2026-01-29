@@ -4,15 +4,15 @@ import { X, Download, FileEdit } from 'lucide-react';
 import jsPDF from 'jspdf';
 import './UserNotesModal.css';
 
-const UserNotesModal = ({ isOpen, onClose, initialText, title, onSave }) => {
+const UserNotesModal = ({ isOpen, onClose, initialText, title, onSave, isLoading }) => {
     const [text, setText] = useState('');
 
     // Sync internal state with prop when opening
     useEffect(() => {
-        if (isOpen) {
+        if (isOpen && !isLoading) {
             setText(initialText || '');
         }
-    }, [isOpen, initialText]);
+    }, [isOpen, initialText, isLoading]);
 
     const handleTextChange = (e) => {
         setText(e.htmlValue);
@@ -67,19 +67,26 @@ const UserNotesModal = ({ isOpen, onClose, initialText, title, onSave }) => {
                         >
                             <Download size={20} />
                         </button>
-                        <button className="close-btn" onClick={handleSave}>
-                            <X size={20} />
+                        <button className="notes-close-btn" onClick={handleSave}>
+                            <X size={24} />
                         </button>
                     </div>
                 </div>
 
                 <div className="notes-modal-body">
-                    <Editor
-                        value={text}
-                        onTextChange={handleTextChange}
-                        style={{ height: '320px' }}
-                        placeholder="Start typing your notes here..."
-                    />
+                    {isLoading ? (
+                        <div className="notes-loading-state">
+                            <div className="spinner"></div>
+                            <p>Loading notes...</p>
+                        </div>
+                    ) : (
+                        <Editor
+                            value={text}
+                            onTextChange={handleTextChange}
+                            style={{ height: '320px' }}
+                            placeholder="Start typing your notes here..."
+                        />
+                    )}
                 </div>
             </div>
         </div>
